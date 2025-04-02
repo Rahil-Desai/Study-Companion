@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Companion - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">Study Companion</a>
+            <div>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="account.html">Account</a>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+    </nav>
+    <div class="container dashboard-container">
+        <h1>Dashboard</h1>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2>Study Timer</h2>
+                <div id="timer" class="timer">25:00</div>
+                <button id="startTimer" class="btn btn-primary">Start</button>
+                <button id="resetTimer" class="btn btn-secondary">Reset</button>
+            </div>
+            <div class="card">
+                <h2>Todo List</h2>
+                <div class="form-group">
+                    <input type="text" id="todoInput" class="form-control" placeholder="Add a task">
+                    <button id="addTodo" class="btn btn-primary">Add</button>
+                </div>
+                <ul id="todoList"></ul>
+            </div>
+            <div class="card">
+                <h2>Create Flashcards</h2>
+                <div class="form-group">
+                    <input type="text" id="frontInput" class="form-control" placeholder="Front of card">
+                    <input type="text" id="backInput" class="form-control" placeholder="Back of card">
+                    <input type="text" id="categoryInput" class="form-control" placeholder="Category (optional)">
+                    <button onclick="addFlashcard()" class="btn btn-primary">Add Flashcard</button>
+                </div>
+                <div id="categoryFilters" class="category-filters"></div>
+                <p id="cardCount" class="text-muted">Total cards: 0</p>
+                <p id="studyStats" class="text-muted">Cards studied today: 0</p>
+            </div>
+            <div class="card">
+                <h2>Study Flashcards</h2>
+                <div id="cardDisplay" class="card-display">
+                    No flashcards yet
+                </div>
+                <div class="flashcard-controls">
+                    <button onclick="prevCard()" class="btn btn-secondary">Previous</button>
+                    <button onclick="flipCard()" class="btn btn-primary">Flip</button>
+                    <button onclick="nextCard()" class="btn btn-secondary">Next</button>
+                </div>
+                <div class="flashcard-controls">
+                    <button onclick="shuffleCards()" class="btn btn-secondary">Shuffle</button>
+                    <button onclick="editCurrentCard()" class="btn btn-secondary">Edit</button>
+                    <button onclick="deleteCurrentCard()" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Quick Notes</h2>
+                <textarea id="notes" class="form-control" rows="4" placeholder="Take notes here..."></textarea>
+            </div>
+            <!-- Streak Display -->
+            <div class="card">
+                <h2>Study Streak</h2>
+                <div id="streakDisplay"></div>
+            </div>
+
+            <!-- Timer Settings -->
+            <div class="card">
+                <h2>Timer Settings</h2>
+                <div class="form-group">
+                    <label for="workTime">Work Time (minutes)</label>
+                    <input type="number" id="workTime" value="25">
+                    <label for="shortBreak">Short Break (minutes)</label>
+                    <input type="number" id="shortBreak" value="5">
+                    <label for="longBreak">Long Break (minutes)</label>
+                    <input type="number" id="longBreak" value="15">
+                    <button id="updateTimerSettings" class="btn btn-primary">Update Timer</button>
+                </div>
+            </div>
+
+            <!-- Export/Import -->
+            <div class="card">
+                <h2>Data Management</h2>
+                <button id="exportBtn" class="btn btn-primary">Export Data</button>
+                <input type="file" id="importBtn" accept=".json" class="btn btn-secondary">
+            </div>
+
+            <!-- Study Goals -->
+            <div class="card">
+                <h2>Study Goals</h2>
+                <div class="form-group">
+                    <input type="text" id="goalInput" placeholder="Enter your study goal">
+                    <input type="date" id="goalDeadline">
+                    <button id="addGoal" class="btn btn-primary">Add Goal</button>
+                </div>
+                <ul id="goalsList"></ul>
+            </div>
+
+            <!-- Focus Mode Toggle -->
+            <button id="focusModeBtn" class="btn btn-secondary">Enter Focus Mode</button>
+
+            <!-- Music Player -->
+            <div class="card">
+                <h2>Study Music</h2>
+                <div id="musicDisplay"></div>
+                <button id="playMusic" class="btn btn-primary">Play</button>
+                <button id="nextTrack" class="btn btn-secondary">Next</button>
+            </div>
+
+            <!-- Progress Chart -->
+            <div class="card">
+                <h2>Study Progress</h2>
+                <canvas id="progressChart"></canvas>
+            </div>
+
+            <!-- Collaborative Sessions -->
+            <div class="card">
+                <h2>Study Together</h2>
+                <div class="form-group">
+                    <input type="text" id="sessionTopic" placeholder="Study topic">
+                    <button id="createSession" class="btn btn-primary">Create Session</button>
+                </div>
+                <div id="sessionsList" class="sessions-list"></div>
+
+                <!-- Chat Container -->
+                <div id="chatContainer" style="display: none;">
+                    <div id="chatInterface" class="chat-interface"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        checkAuth();
+        loadDarkMode();
+        initializeFlashcards();
+    </script>
+</body>
+</html>
